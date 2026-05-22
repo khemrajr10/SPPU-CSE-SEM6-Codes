@@ -1,0 +1,451 @@
+Practical8_Data_Visualization
+
+Data Visualization I 
+1. Use the inbuilt dataset 'titanic'. The dataset contains 891 rows and contains information 
+about the passengers who boarded the unfortunate Titanic ship. Use the Seaborn library to 
+see if we can find any patterns in the data.  
+2. Write a code to check how the price of the ticket (column name: 'fare') for each passenger 
+is distributed by plotting a histogram.  
+
+Code:
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load Titanic Dataset
+df = sns.load_dataset('titanic')
+
+# Display First 5 Rows
+print("First 5 Rows")
+print(df.head())
+
+# Shape of Dataset
+print("\nShape of Dataset")
+print(df.shape)
+
+# Dataset Information
+print("\nDataset Information")
+print(df.info())
+
+# Check Missing Values
+print("\nMissing Values")
+print(df.isnull().sum())
+
+# Statistical Summary
+print("\nStatistical Summary")
+print(df.describe())
+
+# Count Plot for Survival
+plt.figure(figsize=(6,5))
+
+sns.countplot(
+    x='survived',
+    data=df
+)
+
+plt.title("Survival Count")
+
+plt.xlabel("Survived")
+
+plt.ylabel("Passenger Count")
+
+plt.show()
+
+# Count Plot for Gender
+plt.figure(figsize=(6,5))
+
+sns.countplot(
+    x='sex',
+    data=df
+)
+
+plt.title("Gender Distribution")
+
+plt.xlabel("Gender")
+
+plt.ylabel("Passenger Count")
+
+plt.show()
+
+# Count Plot for Passenger Class
+plt.figure(figsize=(6,5))
+
+sns.countplot(
+    x='class',
+    data=df
+)
+
+plt.title("Passenger Class Distribution")
+
+plt.xlabel("Class")
+
+plt.ylabel("Passenger Count")
+
+plt.show()
+
+# Histogram for Fare Distribution
+plt.figure(figsize=(8,5))
+
+plt.hist(
+    df['fare'],
+    bins=30
+)
+
+plt.title("Fare Distribution")
+
+plt.xlabel("Fare")
+
+plt.ylabel("Number of Passengers")
+
+plt.show()
+
+Explanation:
+
+1. What is the objective of this practical?
+
+The objective of this practical is to analyze and visualize the Titanic Dataset using graphs and identify patterns in passenger information using Seaborn and Matplotlib libraries.
+
+2. Which libraries are used in this practical?
+Library			Purpose
+pandas			Data handling
+Seaborn			Statistical visualization
+Matplotlib		Plotting graphs
+
+3. Why is pandas used?
+
+Pandas is used for:
+
+handling datasets
+DataFrame operations
+preprocessing and analysis
+
+4. Why is Seaborn used?
+
+Seaborn is used for:
+
+attractive statistical visualizations
+easy plotting
+data analysis graphs
+
+5. Why is Matplotlib used?
+
+Matplotlib is used for:
+
+creating plots
+customizing graphs
+displaying visualizations
+
+6. Explain this code.
+import pandas as pd
+
+Imports pandas library and assigns alias:
+
+pd
+
+7. Explain this code.
+import seaborn as sns
+
+Imports Seaborn library and assigns alias:
+
+sns
+8. Explain this code.
+import matplotlib.pyplot as plt
+
+Imports pyplot module from Matplotlib and assigns alias:
+
+plt
+9. How did you load Titanic dataset?
+df = sns.load_dataset('titanic')
+
+Loads inbuilt Titanic dataset available in Seaborn.
+
+10. What is stored in df?
+df
+
+contains Titanic dataset in DataFrame format.
+
+11. What does Titanic dataset contain?
+
+Dataset contains passenger information such as:
+
+age
+sex
+class
+fare
+survival status
+12. Explain this code.
+print(df.head())
+
+Displays first 5 rows of dataset.
+
+13. Why is head() used?
+
+head() is used to:
+
+preview data
+understand dataset structure
+check column values
+14. Explain this code.
+df.shape
+
+Returns dimensions of dataset.
+
+15. What does shape output represent?
+(rows, columns)
+
+Example:
+
+(891, 15)
+
+means:
+
+891 rows
+15 columns
+16. Explain this code.
+df.info()
+
+Displays:
+
+column names
+datatypes
+non-null values
+memory usage
+17. Why is info() important?
+
+It helps understand:
+
+dataset structure
+missing values
+datatypes
+18. Explain this code.
+df.isnull().sum()
+
+Checks missing values in each column.
+
+19. What are missing values?
+
+Missing values are unavailable or empty values in dataset.
+
+Example:
+
+NaN
+20. Why are missing values checked?
+
+Missing values can:
+
+affect analysis
+reduce model accuracy
+create errors
+21. Explain this code.
+df.describe()
+
+Provides statistical summary of numerical columns.
+
+22. What statistics does describe() provide?
+
+It provides:
+
+count
+mean
+standard deviation
+minimum
+maximum
+quartiles
+23. What is data visualization?
+
+Data Visualization is graphical representation of data for better understanding and analysis.
+
+24. Which visualization is used first?
+Count Plot
+
+for survival data.
+
+25. Explain this code.
+plt.figure(figsize=(6,5))
+
+Creates new figure with:
+
+width = 6
+height = 5
+26. Why is figure size used?
+
+Figure size improves:
+
+readability
+graph appearance
+spacing
+27. Explain this code.
+sns.countplot(
+    x='survived',
+    data=df
+)
+
+Creates count plot for survival column.
+
+28. What does count plot show?
+
+Count plot shows:
+
+Frequency/count of categorical values
+29. What does x='survived' mean?
+
+Places:
+
+survived
+
+column on X-axis.
+
+Values:
+
+0 → Did not survive
+1 → Survived
+30. What does this plot help analyze?
+
+It helps analyze:
+
+how many passengers survived
+how many passengers died
+31. Explain this code.
+plt.title("Survival Count")
+
+Adds title to graph.
+
+32. Explain this code.
+plt.xlabel("Survived")
+
+Adds X-axis label.
+
+33. Explain this code.
+plt.ylabel("Passenger Count")
+
+Adds Y-axis label.
+
+34. Explain this code.
+plt.show()
+
+Displays graph output.
+
+35. What is the second visualization?
+Gender Count Plot
+36. Explain this code.
+sns.countplot(
+    x='sex',
+    data=df
+)
+
+Creates count plot for gender distribution.
+
+37. What does this graph show?
+
+Shows:
+
+number of male passengers
+number of female passengers
+38. How do you read count plot?
+Axis	Meaning
+X-axis	Categories
+Y-axis	Frequency/count
+
+Taller bar means:
+
+Higher count
+39. What is third visualization?
+Passenger Class Count Plot
+40. Explain this code.
+sns.countplot(
+    x='class',
+    data=df
+)
+
+Displays number of passengers in:
+
+First class
+Second class
+Third class
+41. Why is count plot suitable here?
+
+Because:
+
+class
+
+is categorical data.
+
+42. What is the final visualization?
+Histogram
+
+for fare distribution.
+
+43. Explain this code.
+plt.hist(
+    df['fare'],
+    bins=30
+)
+
+Creates histogram for fare column.
+
+44. What does df['fare'] represent?
+
+It selects:
+
+Fare column
+
+which contains passenger ticket prices.
+
+45. Why is histogram used for fare?
+
+Because fare is:
+
+Continuous Numerical Data
+
+and histogram is best for showing numerical distribution.
+
+46. What does bins=30 mean?
+
+Histogram divides fare values into:
+
+30 intervals/groups
+
+called bins.
+
+47. What are bins?
+
+Bins are ranges used to group numerical values.
+
+Example:
+
+0–10
+10–20
+20–30
+48. How do you read histogram?
+Axis	Meaning
+X-axis	Fare values
+Y-axis	Number of passengers
+49. What does taller bar mean in histogram?
+
+Taller bar means:
+
+More passengers in that fare range
+50. What pattern is usually observed in Titanic fare histogram?
+
+Usually:
+
+many passengers paid low fares
+few passengers paid very high fares
+
+This indicates:
+
+Right Skewed Distribution
+51. Difference between count plot and histogram?
+Count Plot			Histogram
+Used for categorical data	Used for numerical data
+Shows frequency of categories	Shows distribution of values
+
+52. What is the final conclusion of this practical?
+
+This practical visualizes Titanic dataset using count plots and histogram to analyze:
+
+survival distribution
+gender distribution
+passenger class distribution
+fare distribution.
