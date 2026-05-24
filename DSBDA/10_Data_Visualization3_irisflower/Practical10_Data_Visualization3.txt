@@ -1,0 +1,534 @@
+Practical10_Data_Visualization3
+
+Download the Iris flower dataset or any other dataset into a DataFrame. (e.g., 
+https://archive.ics.uci.edu/ml/datasets/Iris ). Scan the dataset and give the inference as: 
+ 
+1. List down the features and their types (e.g., numeric, nominal) available in the dataset.  
+2. Create a histogram for each feature in the dataset to illustrate the feature distributions.  
+3. Create a boxplot for each feature in the dataset.  
+4. Compare distributions and identify outliers.
+
+Code:
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load Downloaded Iris Dataset
+df = pd.read_csv("Iris.csv")
+
+# Display First 5 Rows
+print("First 5 Rows")
+print(df.head())
+
+# Shape of Dataset
+print("\nShape of Dataset")
+print(df.shape)
+
+# Dataset Information
+print("\nDataset Information")
+print(df.info())
+
+# Check Missing Values
+print("\nMissing Values")
+print(df.isnull().sum())
+
+# Statistical Summary
+print("\nStatistical Summary")
+print(df.describe())
+
+# List Features and Datatypes
+print("\nFeatures and Datatypes")
+print(df.dtypes)
+
+# List Feature Names
+print("\nFeature Names")
+print(df.columns)
+
+# Numeric Features
+numeric_columns = [
+    'SepalLengthCm',
+    'SepalWidthCm',
+    'PetalLengthCm',
+    'PetalWidthCm'
+]
+
+# Histograms for Each Feature
+for column in numeric_columns:
+
+    plt.figure(figsize=(6,5))
+
+    sns.histplot(df[column])
+
+    plt.title(f"Histogram of {column}")
+
+    plt.xlabel(column)
+
+    plt.ylabel("Frequency")
+
+    plt.show()
+
+# Boxplots for Each Feature
+for column in numeric_columns:
+
+    plt.figure(figsize=(6,5))
+
+    sns.boxplot(
+        y=df[column]
+    )
+
+    plt.title(f"Boxplot of {column}")
+
+    plt.ylabel(column)
+
+    plt.show()
+
+
+Explanation:
+
+1. What is the objective of this practical?
+The objective of this practical is to analyze and visualize the Iris Dataset using histograms and boxplots to understand:
+
+
+feature distributions
+
+
+spread of data
+
+
+outliers
+
+
+variability
+
+
+
+2. Which libraries are used in this practical?
+LibraryPurposepandasData handlingSeabornStatistical visualizationMatplotlibPlotting graphs
+
+3. Explain this code.
+import pandas as pd
+Imports pandas library and assigns alias:
+pd
+
+4. Why is pandas used?
+Pandas is used for:
+
+
+dataset loading
+
+
+DataFrame operations
+
+
+data analysis
+
+
+
+5. Explain this code.
+import seaborn as sns
+Imports Seaborn library with alias:
+sns
+
+6. Why is Seaborn used?
+Seaborn is used for:
+
+
+statistical visualization
+
+
+attractive plots
+
+
+easy graph creation
+
+
+
+7. Explain this code.
+import matplotlib.pyplot as plt
+Imports pyplot module from Matplotlib.
+Alias:
+plt
+
+8. Why is Matplotlib used?
+Matplotlib is used for:
+
+
+displaying plots
+
+
+customizing graphs
+
+
+figure creation
+
+
+
+9. Explain this code.
+df = pd.read_csv("Iris.csv")
+Loads downloaded Iris dataset into DataFrame.
+
+10. What is stored in df?
+df
+stores dataset in tabular DataFrame format.
+
+11. Explain this code.
+df.head()
+Displays first 5 rows of dataset.
+
+12. Why is head() used?
+It helps:
+
+
+preview data
+
+
+understand columns
+
+
+verify dataset loading
+
+
+
+13. Explain this code.
+df.shape
+Returns dimensions of dataset.
+
+14. What does shape output represent?
+Example:
+(150, 6)
+means:
+
+
+150 rows
+
+
+6 columns
+
+
+
+15. Explain this code.
+df.info()
+Displays:
+
+
+column names
+
+
+datatypes
+
+
+non-null values
+
+
+memory usage
+
+
+
+16. Why is info() important?
+It helps identify:
+
+
+missing values
+
+
+datatypes
+
+
+dataset structure
+
+
+
+17. Explain this code.
+df.isnull().sum()
+Checks missing values in each column.
+
+18. What are missing values?
+Missing values are empty/unavailable values represented as:
+NaN
+
+19. Explain this code.
+df.describe()
+Provides statistical summary of numerical columns.
+
+20. What statistics does describe() provide?
+It provides:
+
+
+count
+
+
+mean
+
+
+standard deviation
+
+
+minimum
+
+
+maximum
+
+
+quartiles
+
+
+
+21. Explain this code.
+df.dtypes
+Displays datatype of each feature.
+
+22. Explain this code.
+df.columns
+Displays all column names.
+
+23. What are the numerical features?
+SepalLengthCmSepalWidthCmPetalLengthCmPetalWidthCm
+
+24. Why are only numerical columns selected?
+Because:
+
+
+histogram
+
+
+boxplot
+
+
+are mainly used for numerical data visualization.
+
+25. Explain this code.
+numeric_columns = [...]
+Stores all numerical feature names in list.
+
+26. What is Histogram?
+Histogram is a graph used to display distribution of numerical data.
+
+27. Explain this code.
+for column in numeric_columns:
+Loops through each numerical feature.
+
+28. Why loop is used?
+Loop avoids writing separate code for every feature.
+
+29. Explain this code.
+plt.figure(figsize=(6,5))
+Creates new figure for graph.
+
+30. What does figsize=(6,5) mean?
+ValueMeaning6Width5Height
+Unit:
+Inches
+
+31. Explain this code.
+sns.histplot(df[column])
+Creates histogram for current feature.
+
+32. What does histogram show?
+Histogram shows:
+
+
+frequency distribution
+
+
+spread of values
+
+
+concentration of values
+
+
+
+33. How do you read histogram?
+AxisMeaningX-axisFeature valuesY-axisFrequency/count
+
+34. What does taller bar mean?
+Taller bar means:
+More observations in that range
+
+35. Example of reading histogram
+Suppose:
+
+
+tallest bar near value 5
+
+
+means:
+
+
+many flowers have feature value around 5.
+
+
+
+36. What can histogram identify?
+Histogram helps identify:
+
+
+distribution
+
+
+skewness
+
+
+spread
+
+
+concentration
+
+
+
+37. Explain this code.
+plt.title(f"Histogram of {column}")
+Adds title to histogram.
+
+38. Explain this code.
+plt.xlabel(column)
+Labels X-axis with feature name.
+
+39. Explain this code.
+plt.ylabel("Frequency")
+Labels Y-axis as frequency.
+
+40. Explain this code.
+plt.show()
+Displays graph.
+
+41. What is Box Plot?
+Box Plot is used to display:
+
+
+median
+
+
+quartiles
+
+
+spread
+
+
+outliers
+
+
+
+42. Explain this code.
+sns.boxplot(y=df[column])
+Creates boxplot for numerical feature.
+
+43. Why is only Y-axis used?
+Because:
+
+
+one variable distribution is visualized vertically.
+
+
+
+44. Parts of Box Plot
+PartMeaningMiddle LineMedianBoxInterquartile RangeWhiskersSpread of normal dataDots outside whiskersOutliers
+
+45. What is Median?
+Median is middle value of ordered data.
+
+46. What is Interquartile Range (IQR)?
+IQR represents middle 50% of data.
+Formula:
+IQR = Q3 - Q1
+
+47. What are whiskers?
+Whiskers are lines extending from box representing normal spread of data.
+
+48. What are outliers?
+Outliers are unusually high or low values outside whiskers.
+
+49. How are outliers identified?
+Values outside:
+Q1 - 1.5 × IQR
+and
+Q3 + 1.5 × IQR
+become outliers.
+
+50. How do you read boxplot?
+ObservationMeaningLarge boxMore spreadSmall boxLess spreadLong whiskersHigh variabilityDots outsideOutliers
+
+51. Example of reading boxplot
+If:
+
+
+many dots appear above whisker
+
+
+means:
+High-value outliers exist
+
+52. Which feature contains outliers in Iris dataset?
+Usually:
+SepalWidthCm
+contains some outliers.
+
+53. What observations can be made from histograms?
+Histograms show:
+
+
+most values concentrated around center
+
+
+approximate distributions
+
+
+spread of features
+
+
+
+54. What observations can be made from boxplots?
+Boxplots show:
+
+
+variability
+
+
+median differences
+
+
+outliers
+
+
+spread
+
+
+
+55. Difference between histogram and boxplot?
+HistogramBoxplotShows frequency distributionShows statistical summaryDisplays spread visuallyDetects outliers clearly
+
+56. Why are visualizations important?
+Visualizations help:
+
+
+understand data quickly
+
+
+identify patterns
+
+
+detect anomalies
+
+
+compare features
+
+
+
+57. What is the final conclusion of this practical?
+This practical visualizes Iris dataset using histograms and boxplots to analyze:
+
+
+feature distributions
+
+
+spread of data
+
+
+variability
+
+
+outliers
+
+
+statistical characteristics.
+
