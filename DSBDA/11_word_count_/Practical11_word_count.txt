@@ -1,0 +1,366 @@
+Practical11_word_count
+
+Write a code in SCALA for a simple WordCount application that counts the number of 
+occurrences of each word in a given input set using the Hadoop MapReduce framework on 
+local-standalone set-up.
+
+Code:
+
+import scala.io.Source 
+import scala.util.Using 
+
+val counts = Using(Source.fromFile("/home/student/Downloads/data.txt")) { file => 
+
+file.getLines() 
+.toList 
+.flatMap(_.split(" ")) 
+.groupBy(identity) 
+.view 
+.mapValues(_.size) 
+.toMap 
+
+}.get 
+
+counts.foreach(println)
+
+
+Explanation:
+
+What is Scala?
+
+Scala is a high-level programming language that combines:
+
+Object-Oriented Programming (OOP)
+Functional Programming (FP)
+
+Scala runs on:
+
+JVM (Java Virtual Machine)
+
+just like Java.
+
+Why Scala is Used?
+
+Scala is used because:
+
+code is shorter than Java
+fast processing
+supports big data frameworks
+works well with Spark and Hadoop
+Features of Scala
+Feature	Meaning
+Object-Oriented	Uses classes and objects
+Functional Programming	Supports functions as values
+JVM Based	Runs on Java Virtual Machine
+Concise Syntax	Less code
+What is Hadoop?
+
+Apache Hadoop is a framework used for:
+
+storing large data
+processing large data
+distributed computing
+Why Hadoop is Needed?
+
+Normal systems cannot efficiently process:
+
+Big Data
+
+Example:
+
+TBs of logs
+social media data
+banking data
+
+Hadoop solves this using:
+
+distributed storage
+parallel processing
+Main Components of Hadoop
+Component	Purpose
+HDFS	Storage system
+MapReduce	Processing framework
+YARN	Resource management
+What is MapReduce?
+
+MapReduce is a programming model used to process large datasets in parallel.
+
+It has 2 phases:
+
+Phase	Work
+Map	Processes input data
+Reduce	Combines results
+What is WordCount?
+
+WordCount is the most basic Hadoop/Scala program.
+
+Purpose:
+
+Count occurrences of each word
+Example
+
+Input:
+
+Hello Hadoop Hello Scala
+
+Output:
+
+Hello -> 2
+Hadoop -> 1
+Scala -> 1
+Why WordCount is Important?
+
+WordCount demonstrates:
+
+file reading
+data processing
+grouping
+counting
+MapReduce concept
+
+1. Import Source
+import scala.io.Source
+
+Imports:
+
+Source
+
+class used for reading files.
+
+Why Needed?
+
+Without this:
+
+Scala cannot read file contents.
+2. Import Using
+import scala.util.Using
+
+Imports:
+
+Using
+
+utility.
+
+Why Using is Important?
+
+It:
+
+safely opens file
+automatically closes file
+prevents memory/resource leaks
+3. Read File
+Source.fromFile("/home/student/Downloads/data.txt")
+
+opens:
+
+data.txt
+
+file.
+
+What is in data.txt?
+
+Example:
+
+Hello Hadoop
+Hello Scala
+Hadoop Scala
+4. Using Block
+Using(...) { file => ... }
+
+means:
+
+Use file safely
+
+After work completes:
+
+file closes automatically.
+5. Read Lines
+file.getLines()
+
+reads file:
+
+line by line
+Example Output
+Iterator(
+ "Hello Hadoop",
+ "Hello Scala"
+)
+6. Convert to List
+.toList
+
+converts lines into:
+
+List
+Why Needed?
+
+Lists are easier to process.
+
+Output
+List(
+ "Hello Hadoop",
+ "Hello Scala"
+)
+7. Split Words
+.flatMap(_.split(" "))
+What split(" ") Does?
+
+Splits sentence into words using spaces.
+
+Example:
+
+"Hello Hadoop"
+
+becomes:
+
+[Hello, Hadoop]
+What is flatMap?
+
+flatMap():
+
+combines all split words into single list.
+Output After flatMap
+List(
+ Hello,
+ Hadoop,
+ Hello,
+ Scala
+)
+8. Group Same Words
+.groupBy(identity)
+
+groups identical words together.
+
+What is identity?
+
+identity means:
+
+Use word itself as key
+Output
+Hello -> List(Hello, Hello)
+Hadoop -> List(Hadoop)
+Scala -> List(Scala)
+9. Create View
+.view
+
+creates lazy view for efficient processing.
+
+Simple Meaning
+
+Scala processes data:
+
+only when needed
+
+saving memory.
+
+10. Count Words
+.mapValues(_.size)
+
+counts size of each group.
+
+Example
+Hello -> List(Hello, Hello)
+
+size:
+
+2
+
+So:
+
+Hello -> 2
+Output
+Hello -> 2
+Hadoop -> 1
+Scala -> 1
+11. Convert to Map
+.toMap
+
+converts result into:
+
+Map
+
+data structure.
+
+What is Map?
+
+Map stores:
+
+key -> value
+
+pairs.
+
+Example:
+
+Hello -> 2
+12. .get
+}.get
+
+extracts final successful result from:
+
+Using
+
+operation.
+
+13. Store Result
+val counts
+
+stores word counts.
+
+14. Print Output
+counts.foreach(println)
+
+prints each:
+
+(word, count)
+
+pair.
+
+Final Output
+(Hello,2)
+(Hadoop,2)
+(Scala,2)
+Flow of Program
+Step	Operation
+1	Read file
+2	Read lines
+3	Split words
+4	Group words
+5	Count occurrences
+6	Print result
+Real-Life Understanding
+
+Suppose text:
+
+apple mango apple banana mango apple
+
+Program counts:
+
+Word	Count
+apple	3
+mango	2
+banana	1
+Viva Answers 🎯
+What is Scala?
+
+You can say:
+
+“Scala is a JVM-based programming language supporting object-oriented and functional programming.”
+
+What is Hadoop?
+
+“Hadoop is a framework used for distributed storage and parallel processing of big data.”
+
+What is WordCount?
+
+“WordCount is a program that counts occurrences of words in text data.”
+
+What does groupBy(identity) do?
+
+“It groups identical words together using the word itself as key.”
+
+Why is flatMap() used?
+
+“flatMap() splits lines into words and combines them into a single list.”
+
+Why is mapValues(_.size) used?
+
+“It counts number of occurrences of each grouped word.”
