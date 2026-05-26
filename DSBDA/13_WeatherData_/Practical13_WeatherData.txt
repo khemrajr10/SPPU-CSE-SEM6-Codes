@@ -1,0 +1,295 @@
+Practical13_WeatherData
+
+Locate dataset (e.g., sample_weather.txt) for working on weather data which reads the text 
+input files and finds average for temperature, dew point and wind speed. 
+
+Code:
+
+import scala.io.Source 
+val data = Source.fromFile("weather.txt").getLines().toList 
+var tempSum = 0.0 
+var dewSum = 0.0 
+var windSum = 0.0 
+var count = 0 
+for (line <- data) { 
+val values = line.split(" ") 
+tempSum += values(0).toDouble 
+dewSum += values(1).toDouble 
+windSum += values(2).toDouble 
+count += 1 
+} 
+println("Average Temperature: " + tempSum / count) 
+println("Average Dew Point: " + dewSum / count) 
+println("Average Wind Speed: " + windSum / count)
+
+Explanation:
+
+1. What is the objective of this program?
+
+The objective of this program is to analyze weather data and calculate:
+
+average temperature
+average dew point
+average wind speed
+
+using Scala.
+
+2. What dataset is used?
+
+Dataset used:
+
+weather.txt
+
+This is a text file containing weather records.
+
+3. Example Dataset
+
+Example:
+
+30 22 10
+32 24 12
+28 20 8
+35 25 15
+4. What do these values represent?
+Column	Meaning
+First Value	Temperature
+Second Value	Dew Point
+Third Value	Wind Speed
+5. What is Temperature?
+
+Temperature measures:
+
+Hotness or coldness of atmosphere
+6. What is Dew Point?
+
+Dew point is the temperature at which:
+
+Water vapor condenses into liquid
+
+It indicates humidity level.
+
+7. What is Wind Speed?
+
+Wind speed measures:
+
+Speed of moving air
+8. Explain this code.
+import scala.io.Source
+
+Imports:
+
+Source
+
+class used for reading files.
+
+9. Why is Source used?
+
+Without:
+
+Source
+
+Scala cannot read file data.
+
+10. Explain this code.
+val data =
+Source.fromFile("weather.txt")
+.getLines()
+.toList
+What does it do?
+
+This code:
+
+opens weather file
+reads lines
+converts lines into list
+11. Explain this code.
+Source.fromFile("weather.txt")
+
+opens:
+
+weather.txt
+
+file.
+
+12. Explain this code.
+.getLines()
+
+Reads file:
+
+line by line
+13. Explain this code.
+.toList
+
+Converts lines into:
+
+List
+
+structure.
+
+Example Output
+List(
+ "30 22 10",
+ "32 24 12",
+ "28 20 8"
+)
+14. Explain this code.
+var tempSum = 0.0
+
+Creates variable to store:
+
+Total temperature sum
+15. Explain this code.
+var dewSum = 0.0
+
+Stores:
+
+Total dew point sum
+16. Explain this code.
+var windSum = 0.0
+
+Stores:
+
+Total wind speed sum
+17. Explain this code.
+var count = 0
+
+Stores:
+
+Number of records
+18. Explain this loop.
+for(line <- data)
+
+Loops through every line in dataset.
+
+19. Explain this code.
+val values = line.split(" ")
+
+Splits line into separate values using spaces.
+
+Example
+
+Input line:
+
+30 22 10
+
+After split:
+
+[30,22,10]
+20. Explain this code.
+tempSum += values(0).toDouble
+
+Adds first value (temperature) to:
+
+tempSum
+Why toDouble is used?
+
+Because:
+
+split()
+
+returns string values.
+
+Numeric calculations require:
+
+Double datatype
+21. Explain this code.
+dewSum += values(1).toDouble
+
+Adds second value (dew point) to:
+
+dewSum
+22. Explain this code.
+windSum += values(2).toDouble
+
+Adds third value (wind speed) to:
+
+windSum
+23. Explain this code.
+count += 1
+
+Increases record count by:
+
+1
+
+for every line.
+
+24. How is average calculated?
+
+Formula:
+
+Average = Sum / Count
+25. Explain this code.
+println("Average Temperature: " + tempSum / count)
+
+Calculates and displays:
+
+Average Temperature
+26. Explain this code.
+println("Average Dew Point: " + dewSum / count)
+
+Displays:
+
+Average Dew Point
+27. Explain this code.
+println("Average Wind Speed: " + windSum / count)
+
+Displays:
+
+Average Wind Speed
+Example Calculation
+
+Dataset:
+
+30 22 10
+32 24 12
+28 20 8
+
+Temperature Average:
+
+(30 + 32 + 28) / 3
+= 90 / 3
+= 30
+Expected Output
+Average Temperature: 30.0
+Average Dew Point: 22.0
+Average Wind Speed: 10.0
+Flow of Program
+Step	Operation
+1	Read weather file
+2	Read lines
+3	Split values
+4	Extract temperature
+5	Extract dew point
+6	Extract wind speed
+7	Calculate sums
+8	Calculate averages
+9	Display output
+Why is this useful?
+
+Weather analysis helps:
+
+climate monitoring
+forecasting
+environmental analysis
+Viva Answers 🎯
+What is the purpose of this program?
+
+You can say:
+
+“This program reads weather data and calculates average temperature, dew point, and wind speed.”
+
+Why is split(" ") used?
+
+“It separates values in each line using spaces.”
+
+Why is toDouble used?
+
+“Because split returns strings and numerical calculations require numeric datatype.”
+
+What does count represent?
+
+“count stores total number of weather records.”
+
+How is average calculated?
+
+“Average is calculated using formula: Sum divided by Count.”
