@@ -1,0 +1,425 @@
+Practical12_MapReduce
+
+Design a distributed application using MapReduce which processes a log file of a system.
+
+Code:
+
+import scala.io.Source
+
+val counts = Source.fromFile("log.txt")
+
+.getLines()
+
+.flatMap(_.split(" "))
+
+.map(word => {
+
+  if (word.startsWith("INFO"))
+    "INFO"
+
+  else if (word.startsWith("ERROR"))
+    "ERROR"
+
+  else if (word.startsWith("WARN"))
+    "WARN"
+
+  else
+    "OTHER"
+})
+
+.filter(_ != "OTHER")
+
+.toList
+
+.groupBy(word => word)
+
+.map {
+  case (word, list) =>
+    (word, list.size)
+}
+
+counts.foreach {
+  case (k, v) =>
+
+    print(s"($k,$v) ")
+}
+
+
+
+How to run:
+
+Start Jupyter Notebook
+Run:
+jupyter notebook
+Browser opens automatically.
+
+Step 6 — Create Scala Notebook
+Click:
+New → Scala
+
+Step 7 — Create Log File
+Create:
+log.txt
+Keep it in: same folder as notebook
+Example content:
+
+INFO Login successful
+ERROR Database failed
+WARN Low memory
+INFO Upload complete
+ERROR Invalid password
+
+
+Explanation:
+
+1. What is the objective of this program?
+
+The objective of this program is to analyze a system log file and count occurrences of:
+
+INFO logs
+ERROR logs
+WARN logs
+
+using Scala following the concept of Apache Hadoop MapReduce.
+
+2. What is Scala?
+
+Scala is a JVM-based programming language that supports:
+
+Object-Oriented Programming
+Functional Programming
+
+Scala is widely used in:
+
+Big Data
+Apache Spark
+Distributed systems
+3. Why is Scala used in Big Data?
+
+Scala is used because:
+
+concise syntax
+fast execution
+functional programming support
+compatibility with Java and Hadoop ecosystem
+4. What is Hadoop?
+
+Apache Hadoop is a framework used for:
+
+distributed storage
+distributed processing
+handling large datasets
+5. What is MapReduce?
+
+MapReduce is a programming model used for processing large datasets in parallel.
+
+It has two main phases:
+
+Phase	Purpose
+Map	Processes and transforms input
+Reduce	Aggregates final result
+6. Explain Map Phase.
+
+Map phase:
+
+reads input data
+converts it into key-value pairs
+
+Example:
+
+Input:
+
+INFO ERROR INFO
+
+Map Output:
+
+(INFO,1)
+(ERROR,1)
+(INFO,1)
+7. Explain Shuffle and Sort Phase.
+
+In this phase:
+
+similar keys are grouped together
+
+Example:
+
+INFO -> [1,1]
+ERROR -> [1]
+8. Explain Reduce Phase.
+
+Reduce phase:
+
+combines grouped values
+calculates final count
+
+Output:
+
+INFO -> 2
+ERROR -> 1
+9. How does this Scala program follow MapReduce concept?
+MapReduce Phase	Scala Operation
+Map	Extract INFO/ERROR/WARN
+Shuffle	groupBy()
+Reduce	Count occurrences
+10. Explain this code.
+import scala.io.Source
+
+Imports:
+
+Source
+
+class for reading files.
+
+11. Why is Source needed?
+
+Without:
+
+Source
+
+Scala cannot read file contents.
+
+12. Explain this code.
+val counts =
+
+Creates variable:
+
+counts
+
+to store final log counts.
+
+13. Explain this code.
+Source.fromFile("log.txt")
+
+opens:
+
+log.txt
+
+file.
+
+14. What is log.txt?
+
+It is a system log file containing:
+
+INFO logs
+ERROR logs
+WARN logs
+
+Example:
+
+INFO Login successful
+ERROR Database failed
+WARN Low memory
+15. Explain this code.
+.getLines()
+
+Reads file:
+
+line by line
+16. Explain this code.
+.flatMap(_.split(" "))
+What does split(" ") do?
+
+Splits line into individual words using spaces.
+
+Example:
+
+"INFO Login successful"
+
+becomes:
+
+[INFO, Login, successful]
+17. What does flatMap() do?
+
+flatMap():
+
+combines all split words into one list.
+Output After flatMap
+INFO
+Login
+successful
+ERROR
+Database
+failed
+18. Explain this code.
+.map(word => {
+
+Processes each word individually.
+
+19. Explain this condition.
+if(word.startsWith("INFO"))
+
+Checks whether word begins with:
+
+INFO
+20. Why is startsWith() used?
+
+To identify log type.
+
+21. Explain this block.
+if(word.startsWith("INFO"))
+  "INFO"
+
+else if(word.startsWith("ERROR"))
+  "ERROR"
+
+else if(word.startsWith("WARN"))
+  "WARN"
+
+else
+  "OTHER"
+
+This converts all words into categories:
+
+INFO
+ERROR
+WARN
+OTHER
+22. Why is "OTHER" used?
+
+Words that are not log levels are marked:
+
+OTHER
+Example
+
+Input words:
+
+INFO Login ERROR Database
+
+After mapping:
+
+INFO
+OTHER
+ERROR
+OTHER
+23. Explain this code.
+.filter(_ != "OTHER")
+
+Removes:
+
+OTHER
+
+values.
+
+24. Why is filter used?
+
+Filter keeps only:
+
+INFO
+ERROR
+WARN
+Output After Filter
+INFO
+ERROR
+WARN
+INFO
+25. Explain this code.
+.toList
+
+Converts data into:
+
+List
+
+structure.
+
+26. Why is list used?
+
+Lists are easier to group and process.
+
+27. Explain this code.
+.groupBy(word => word)
+
+Groups identical log types together.
+
+Example
+INFO -> [INFO, INFO]
+ERROR -> [ERROR]
+WARN -> [WARN]
+28. What phase of MapReduce does groupBy() represent?
+Shuffle and Sort Phase
+29. Explain this code.
+.map {
+  case(word,list)=>
+    (word,list.size)
+}
+
+Counts occurrences of each grouped log type.
+
+Example
+INFO -> [INFO, INFO]
+
+size:
+
+2
+
+Result:
+
+(INFO,2)
+30. What phase of MapReduce does this represent?
+Reduce Phase
+31. Explain this code.
+counts.foreach {
+
+Loops through final results.
+
+32. Explain this code.
+print(s"($k,$v) ")
+
+Prints:
+
+(logtype,count)
+
+format.
+
+33. Example Output
+(INFO,2) (ERROR,1) (WARN,1)
+
+Meaning:
+
+INFO occurred 2 times
+ERROR occurred 1 time
+WARN occurred 1 time
+34. What are INFO logs?
+
+INFO logs represent:
+
+Normal system operations
+
+Example:
+
+INFO User logged in
+35. What are ERROR logs?
+
+ERROR logs represent:
+
+Serious system problems
+
+Example:
+
+ERROR Database failed
+36. What are WARN logs?
+
+WARN logs represent:
+
+Potential issues or warnings
+
+Example:
+
+WARN Disk space low
+37. Why is log analysis important?
+
+Log analysis helps:
+
+monitor systems
+detect failures
+troubleshoot errors
+improve security
+38. What is the final conclusion of this program?
+
+This Scala program performs log analysis using MapReduce concept by:
+
+reading log file
+identifying log types
+grouping similar logs
+counting occurrences
+displaying final statistics.
